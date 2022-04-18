@@ -8,20 +8,16 @@ import theme from "./theme";
 import Login from "./Login";
 import Navigation from "./Navigation/Navigation";
 
-function Failed() {
-  return <div>Fail</div>;
-}
+const Success = () => <div>Logged in</div>;
 
-function App() {
-  return (
-    <ThemeProvider theme={theme}>
-      <Routes>
-        <Route path="/" element={<Navigation />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/failed" element={<Failed />} />
-      </Routes>
-    </ThemeProvider>
-  );
-}
+const App = () => (
+  <ThemeProvider theme={theme}>
+    <Routes>
+      <Route path="/" element={<Navigation />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/login/success" element={<Success />} />
+    </Routes>
+  </ThemeProvider>
+);
 
 export default App;

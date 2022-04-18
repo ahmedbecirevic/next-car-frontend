@@ -1,8 +1,12 @@
-import { Button } from "@mui/material";
+import { Button, Box } from "@mui/material";
 
-function Login() {
+const Login = () => {
+  const onGoogleSignInHandler = () => {
+    window.location.href = `${process.env.REACT_APP_BACKEND_SERVER}/user/auth/google`;
+  };
+
   return (
-    <Button
+    <Box
       sx={{
         height: "100vh",
         display: "flex",
@@ -10,9 +14,14 @@ function Login() {
         alignItems: "center",
       }}
     >
-      Sign in with Google
-    </Button>
+      <Button
+        variant="primary"
+        onClick={onGoogleSignInHandler}
+      >
+        Sign in with Google
+      </Button>
+    </Box>
   );
-}
+};
 
 export default Login;

@@ -41,7 +41,14 @@ module.exports = {
       ImportDeclaration: { multiline: true, minProperties: 4 },
       ExportDeclaration: { multiline: true, minProperties: 4 },
     }],
-    "no-param-reassign": ["error", { props: true, ignorePropertyModificationsFor: ["state"] }],
+    "no-param-reassign": ["error", {
+      props: true,
+      ignorePropertyModificationsFor: ["state"],
+    }],
+    "react/function-component-definition": [2, {
+      namedComponents: "arrow-function",
+      unnamedComponents: "arrow-function",
+    }],
   },
   settings: { react: { version: "detect" } },
   overrides: [{ files: ["*.jsx", "*.js"] }],
