@@ -17,6 +17,7 @@ const Login = () => {
       <Button
         variant="primary"
         onClick={onGoogleSignInHandler}
+        sx={{ bgcolor: "primary.main" }}
       >
         Sign in with Google
       </Button>

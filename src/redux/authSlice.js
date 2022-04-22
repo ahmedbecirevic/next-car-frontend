@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { loggedUser: null };
+const initialState = { loggedUser: {} };
 
 export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    sessionExpired: (state) => {
+    tokenExpired: (state) => {
       state.loggedUser = null;
     },
   },
   extraReducers: {},
 });
 
-export const { sessionExpired } = authSlice.actions;
+export const { tokenExpired } = authSlice.actions;
 
 export default authSlice.reducer;
