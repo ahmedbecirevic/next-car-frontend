@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   Routes,
   Route,
@@ -7,25 +9,35 @@ import { ThemeProvider, CssBaseline } from "@mui/material";
 
 import theme from "./theme";
 import Login from "./components/Login";
-// import Navigation from "./components/Navigation/Navigation";
+import Cars from "./components/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
+import { userLoggedIn } from "./redux/authSlice";
+import { checkIfLoggedIn } from "./helpers";
 
-// const Success = () => <div>Logged in</div>;
+const App = () => {
+  const dispatch = useDispatch();
 
-const App = () => (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Routes>
-      <Route element={<PublicOutlet />}>
-        <Route path={ROUTES.SIGN_IN} element={<Login />} />
-      </Route>
-      <Route path="/" element={<PrivateOutlet />}>
-        <Route index element={<p>Not logged in</p>} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" />} />
-    </Routes>
-  </ThemeProvider>
-);
+  useEffect(() => {
+    dispatch(userLoggedIn(checkIfLoggedIn()));
+    console.log("Render");
+  }, [dispatch]);
+
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Routes>
+        <Route element={<PublicOutlet />}>
+          <Route path={ROUTES.SIGN_IN} element={<Login />} />
+        </Route>
+        <Route path="/" element={<PrivateOutlet />}>
+          <Route path="/" element={<Navigate to="cars" />} />
+          <Route path="cars" element={<Cars />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </ThemeProvider>
+  );
+};
 
 export default App;

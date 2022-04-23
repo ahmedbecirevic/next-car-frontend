@@ -2,7 +2,7 @@ import { Button, Box } from "@mui/material";
 
 const Login = () => {
   const onGoogleSignInHandler = () => {
-    window.location.href = `${process.env.REACT_APP_BACKEND_SERVER}/user/auth/google`;
+    window.location.href = `${process.env.REACT_APP_API_URL}/user/auth/google`;
   };
 
   return (

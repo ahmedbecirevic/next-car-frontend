@@ -1,13 +1,16 @@
 import Box from "@mui/material/Box";
+import { Outlet } from "react-router-dom";
 
-import Navigation from "../components/Navigation/Navigation";
+import LogOut from "../components/Login/LogOut";
+import Navigation from "../components/Navigation";
 
 const PrivateLayout = () => (
   <>
     <Navigation />
-    <Box sx={{ display: "flex", backgroundColor: "gray.light", height: "100vh" }}>
-      Private layout
+    <Box sx={{ display: "flex", backgroundColor: "gray.light" }}>
+      <Outlet />
     </Box>
+    <LogOut />
   </>
 );
 
