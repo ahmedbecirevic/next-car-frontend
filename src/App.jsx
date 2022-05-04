@@ -20,7 +20,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(userLoggedIn(checkIfLoggedIn()));
-    console.log("Render");
   }, [dispatch]);
 
   return (
