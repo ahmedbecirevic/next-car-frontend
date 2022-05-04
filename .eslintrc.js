@@ -22,7 +22,6 @@ module.exports = {
     "linebreak-style": 0,
     "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1 }],
     quotes: [2, "double", { avoidEscape: true }],
-    "no-param-reassign": ["error", { props: false }],
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [1, { custom: "ignore" }],
@@ -41,6 +40,14 @@ module.exports = {
       ObjectPattern: { multiline: true, minProperties: 4 },
       ImportDeclaration: { multiline: true, minProperties: 4 },
       ExportDeclaration: { multiline: true, minProperties: 4 },
+    }],
+    "no-param-reassign": ["error", {
+      props: true,
+      ignorePropertyModificationsFor: ["state"],
+    }],
+    "react/function-component-definition": [2, {
+      namedComponents: "arrow-function",
+      unnamedComponents: "arrow-function",
     }],
   },
   settings: { react: { version: "detect" } },
