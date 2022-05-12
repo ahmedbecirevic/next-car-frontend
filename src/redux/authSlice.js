@@ -13,7 +13,7 @@ export const authSlice = createSlice({
       state.loggedUser = null;
     },
     logoutUser: (state) => {
-      document.cookie = "x-auth-cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       state.loggedUser = null;
     },
   },
