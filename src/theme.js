@@ -11,8 +11,8 @@ const theme = createTheme({
     },
   },
   palette: {
-    primary: { main: "#00bfff" },
-    secondary: { main: "#38c7b6" },
+    primary: { main: "#2E7A91" },
+    secondary: { main: "#BBBBBB" },
   },
   MuiCssBaseline: {
     "@global": {

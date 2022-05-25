@@ -1,15 +1,16 @@
 import { Button } from "@mui/material";
-import { useDispatch } from "react-redux";
-
-import { logoutUser } from "../../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const LogOut = () => {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <Button
       variant="primary"
-      onClick={() => dispatch(logoutUser())}
+      onClick={() => {
+        localStorage.removeItem("token");
+        navigate("/sign-in");
+      }}
     >
       Log out
     </Button>

@@ -1,26 +1,29 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import {
   Routes,
   Route,
   Navigate,
+  useSearchParams,
+  useNavigate,
 } from "react-router-dom";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import { useEffect } from "react";
 
 import theme from "./theme";
 import Login from "./components/Login";
 import Cars from "./components/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
-import { userLoggedIn } from "./redux/authSlice";
-import { checkIfLoggedIn } from "./helpers";
 
 const App = () => {
-  const dispatch = useDispatch();
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(userLoggedIn(checkIfLoggedIn()));
-  }, [dispatch]);
+    if (searchParams.has("token")) {
+      searchParams.delete("token");
+      navigate("cars");
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -30,13 +33,13 @@ const App = () => {
           <Route path={ROUTES.SIGN_IN} element={<Login />} />
         </Route>
         <Route path="/" element={<PrivateOutlet />}>
-          <Route path="/" element={<Navigate to="cars" />} />
-          <Route path="cars" element={<Cars />} />
+          {/* <Route path="cars" element={<Navigate to="cars" />} /> */}
+          <Route index path="cars" element={<Cars />} />
+          {/* <Route path="dar" element={<Cars />} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </ThemeProvider>
   );
 };
-
 export default App;
