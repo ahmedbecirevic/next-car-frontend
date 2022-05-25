@@ -23,6 +23,7 @@ const App = () => {
       searchParams.delete("token");
       navigate("cars");
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
