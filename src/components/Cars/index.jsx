@@ -9,9 +9,7 @@ const Cars = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      await dispatch(getAllCars());
-    })();
+    dispatch(getAllCars());
   }, [dispatch]);
 
   return (

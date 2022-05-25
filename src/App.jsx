@@ -21,7 +21,7 @@ const App = () => {
   useEffect(() => {
     if (searchParams.has("token")) {
       searchParams.delete("token");
-      navigate("cars");
+      navigate("/");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -35,7 +35,8 @@ const App = () => {
         </Route>
         <Route path="/" element={<PrivateOutlet />}>
           {/* <Route path="cars" element={<Navigate to="cars" />} /> */}
-          <Route index path="cars" element={<Cars />} />
+          <Route path="/" element={<div>Home</div>} />
+          <Route path="cars" element={<Cars />} />
           {/* <Route path="dar" element={<Cars />} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

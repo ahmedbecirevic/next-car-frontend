@@ -42,7 +42,7 @@ export const carsSlice = createSlice({
   initialState,
   reducers: {
     setCars: (state, action) => {
-      state.car = action.payload;
+      state.cars = action.payload;
     },
   },
   extraReducers: {
