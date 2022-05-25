@@ -9,7 +9,6 @@ const Cars = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("fetching");
     (async () => {
       await dispatch(getAllCars());
     })();
