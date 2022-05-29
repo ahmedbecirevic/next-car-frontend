@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import Cars from "./components/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
+import Home from "./pages/home";
 
 const App = () => {
   const [searchParams] = useSearchParams();
@@ -35,7 +36,7 @@ const App = () => {
         </Route>
         <Route path="/" element={<PrivateOutlet />}>
           {/* <Route path="cars" element={<Navigate to="cars" />} /> */}
-          <Route path="/" element={<div>Home</div>} />
+          <Route path="/" element={<Home />} />
           <Route path="cars" element={<Cars />} />
           {/* <Route path="dar" element={<Cars />} /> */}
         </Route>

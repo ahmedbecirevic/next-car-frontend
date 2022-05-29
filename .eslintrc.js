@@ -27,6 +27,7 @@ module.exports = {
     "react/jsx-props-no-spreading": [1, { custom: "ignore" }],
     "react/display-name": 0,
     "newline-before-return": "error",
+    "no-unused-vars": "warn",
     "import/order": [
       "error",
       {
