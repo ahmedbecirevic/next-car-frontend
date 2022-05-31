@@ -1,7 +1,5 @@
-import axios from "../axios";
+import { requestWithAuthHeader } from "../helpers";
 
-const config = { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } };
+export const createCar = (car) => requestWithAuthHeader("POST", "/cars", car);
 
-export const createCar = (car) => axios.post("/cars", car, config);
-
-export const getCars = () => axios.get("/cars", config);
+export const getCars = () => requestWithAuthHeader("GET", "/cars");

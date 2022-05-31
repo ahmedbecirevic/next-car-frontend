@@ -5,7 +5,7 @@ import carsReducer from "./carsSlice";
 
 const reducer = {
   auth: authReducer,
-  cars: carsReducer,
+  carsData: carsReducer,
 };
 
 const combinedReducer = combineReducers(reducer);

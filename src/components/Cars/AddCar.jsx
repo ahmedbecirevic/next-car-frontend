@@ -29,7 +29,7 @@ const AddCar = () => {
     getValues,
   } = useForm({
     resolver: yupResolver(carValidationSchema),
-    mode: "all",
+    mode: "onChange",
   });
 
   const onSubmitHandler = async () => {
