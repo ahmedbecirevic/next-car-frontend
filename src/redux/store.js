@@ -2,10 +2,12 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import authReducer from "./authSlice";
 import carsReducer from "./carsSlice";
+import snackbarReducer from "./snackbarSlice";
 
 const reducer = {
   auth: authReducer,
   carsData: carsReducer,
+  snackbar: snackbarReducer,
 };
 
 const combinedReducer = combineReducers(reducer);

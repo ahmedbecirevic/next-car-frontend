@@ -1,9 +1,13 @@
-import { Box, Button, Dialog } from "@mui/material";
+import {
+  Box, Button, Card, CardContent, Dialog, DialogContent, Typography,
+} from "@mui/material";
+import { isFulfilled } from "@reduxjs/toolkit";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getAllCars } from "../../redux/carsSlice";
-import AddCar from "./AddCar";
+import { setErrorMessage } from "../../redux/snackbarSlice";
+import AddCarModal from "./AddCarModal";
 
 const Cars = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -12,24 +16,40 @@ const Cars = () => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(getAllCars());
+      const res = await dispatch(getAllCars());
+      if (!isFulfilled(res)) {
+        dispatch(setErrorMessage({ text: "Error fetching cars" }));
+      }
     })();
   }, [dispatch]);
 
-  const onCloseModalHandler = () => { setIsModalOpened(false); };
+  const onCloseModalHandler = () => {
+    setIsModalOpened(false);
+  };
 
   return (
     <>
-      <Dialog onClose={onCloseModalHandler} open={isModalOpened}>
-        <AddCar />
-      </Dialog>
-      <Box sx={{ width: "100%" }}>
-        <Button onClick={() => setIsModalOpened(true)}>Add New Car</Button>
+      <AddCarModal open={isModalOpened} onClose={onCloseModalHandler} />
+      <Box sx={{ width: "100%", textAlign: "center" }}>
+        <Button sx={{ bgcolor: "green", mt: 2, color: "white" }} onClick={() => setIsModalOpened(true)}>Add New Car</Button>
         <Box sx={{
-          m: 5, display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",
+          display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",
         }}
         >
-          {cars?.map((car) => <Box sx={{ p: 4 }} key={car?.id}>{car?.description}</Box>)}
+          {cars?.map((car) => (
+            <Card
+              sx={{
+                minWidth: 500, maxWidth: 500, mt: 2, textAlign: "center", bgcolor: "#8d99ae",
+              }}
+              key={car?.id}
+            >
+              <CardContent>
+                <Typography variant="h5">{car?.description}</Typography>
+                <Typography variant="body2">{car?.vin}</Typography>
+              </CardContent>
+
+            </Card>
+          ))}
         </Box>
       </Box>
     </>

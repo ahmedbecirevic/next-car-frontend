@@ -41,8 +41,8 @@ export const carsSlice = createSlice({
   name: "cars",
   initialState,
   reducers: {
-    setCars: (state, action) => {
-      state.cars = action.payload;
+    addCar: (state, action) => {
+      state.cars.push(action.payload);
     },
   },
   extraReducers: {
@@ -64,6 +64,11 @@ export const carsSlice = createSlice({
       state.error.isError = false;
       state.isLoading = false;
     },
+    [createNewCar.fulfilled]: (state, action) => {
+      state.cars.push(action.payload);
+      state.error.isError = false;
+      state.isLoading = false;
+    },
     [createNewCar.pending]: (state) => {
       state.isLoading = true;
     },
@@ -75,6 +80,6 @@ export const carsSlice = createSlice({
   },
 });
 
-export const { setCars } = carsSlice.actions;
+export const { addCar } = carsSlice.actions;
 
 export default carsSlice.reducer;

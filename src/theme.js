@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
 const theme = createTheme({
   breakpoints: {
@@ -11,8 +11,8 @@ const theme = createTheme({
     },
   },
   palette: {
-    primary: { main: "#2E7A91" },
-    secondary: { main: "#BBBBBB" },
+    primary: { main: "#2b2d42" },
+    secondary: { main: "#fff8f0" },
   },
   MuiCssBaseline: {
     "@global": {
@@ -24,4 +24,4 @@ const theme = createTheme({
   },
 });
 
-export default theme;
+export default responsiveFontSizes(theme);

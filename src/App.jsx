@@ -14,6 +14,8 @@ import Cars from "./components/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
 import Home from "./pages/home";
+import SnackBar from "./components/UI/Snackbar";
+import Profile from "./pages/profile";
 
 const App = () => {
   const [searchParams] = useSearchParams();
@@ -30,6 +32,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <SnackBar />
       <Routes>
         <Route element={<PublicOutlet />}>
           <Route path={ROUTES.SIGN_IN} element={<Login />} />
@@ -38,6 +41,7 @@ const App = () => {
           {/* <Route path="cars" element={<Navigate to="cars" />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="cars" element={<Cars />} />
+          <Route path="profile" element={<Profile />} />
           {/* <Route path="dar" element={<Cars />} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

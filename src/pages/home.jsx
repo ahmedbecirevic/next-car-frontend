@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import LogOut from "../components/Login/LogOut";
@@ -9,7 +9,7 @@ const Home = () => (
     width: "40vw", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",
   }}
   >
-    <div>home</div>
+    <Typography variant="h2">home</Typography>
     <Link to={ROUTES.CARS}>Cars</Link>
     <LogOut />
   </Box>
