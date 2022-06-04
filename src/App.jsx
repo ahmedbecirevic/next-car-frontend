@@ -5,11 +5,12 @@ import {
   useSearchParams,
   useNavigate,
 } from "react-router-dom";
-import { ThemeProvider, CssBaseline } from "@mui/material";
+import { CssBaseline } from "@mui/material";
 import { useEffect } from "react";
 
-import theme from "./theme";
-import Login from "./components/Login";
+import ThemeProvider from "./theme/index";
+// import Login from "./components/Login";
+import Login from "./pages/Login";
 import Cars from "./components/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
@@ -30,7 +31,7 @@ const App = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       <SnackBar />
       <Routes>

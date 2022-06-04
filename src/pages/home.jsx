@@ -1,7 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import LogOut from "../components/Login/LogOut";
 import { ROUTES } from "../config";
 
 const Home = () => (
@@ -11,7 +10,6 @@ const Home = () => (
   >
     <Typography variant="h2">home</Typography>
     <Link to={ROUTES.CARS}>Cars</Link>
-    <LogOut />
   </Box>
 );
 

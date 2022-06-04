@@ -25,8 +25,11 @@ module.exports = {
     "import/prefer-default-export": "off",
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "react/jsx-props-no-spreading": [1, { custom: "ignore" }],
+    "react/forbid-prop-types": 0,
+    "react/require-default-props": 0,
     "react/display-name": 0,
     "newline-before-return": "error",
+    "max-len": ["error", { code: 150 }],
     "no-unused-vars": "warn",
     "import/order": [
       "error",
@@ -46,7 +49,7 @@ module.exports = {
       props: true,
       ignorePropertyModificationsFor: ["state"],
     }],
-    "react/function-component-definition": [2, {
+    "react/function-component-definition": [0, {
       namedComponents: "arrow-function",
       unnamedComponents: "arrow-function",
     }],
