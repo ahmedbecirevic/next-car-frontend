@@ -16,7 +16,7 @@ const CarCard = ({ car }) => {
       <Box sx={{ pt: "10%", position: "relative" }}>
         <Label
           variant="filled"
-          color="info"
+          color="default"
           sx={{
             zIndex: 9,
             top: 16,
@@ -29,23 +29,28 @@ const CarCard = ({ car }) => {
         </Label>
       </Box>
       <Stack spacing={2} sx={{ p: 3 }}>
+        <Stack direction="column" alignItems="center" justifyContent="space-between">
+          <Typography variant="body2">
+            <b>VIN:</b>
+            {" "}
+            {vin}
+          </Typography>
+          <Typography variant="body2">
+            <b>Mileage:</b>
+            {" "}
+            {mileage}
+          </Typography>
+          <Typography variant="body2">
+            <b>HP:</b>
+            {" "}
+            {horsePower}
+          </Typography>
+        </Stack>
         <Link to="/" color="inherit" underline="hover" component={RouterLink}>
           <Typography variant="subtitle2" noWrap>
             {description}
           </Typography>
         </Link>
-        <Stack direction="column" alignItems="center" justifyContent="space-between">
-          {/* <ColorPreview colors={colors} /> */}
-          <Typography variant="body2">
-            {vin}
-          </Typography>
-          <Typography variant="body2">
-            {mileage}
-          </Typography>
-          <Typography variant="body2">
-            {horsePower}
-          </Typography>
-        </Stack>
       </Stack>
     </Card>
   );

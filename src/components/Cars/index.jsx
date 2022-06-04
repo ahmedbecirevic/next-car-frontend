@@ -34,38 +34,16 @@ const Cars = () => {
   return (
     <Page title="Cars">
       <AddCarModal open={isModalOpened} onClose={onCloseModalHandler} />
-      <Button sx={{ bgcolor: "green", mt: 2, color: "white" }} onClick={() => setIsModalOpened(true)}>Add New Car</Button>
-
-      {/* {cars?.map((car) => (
-        <CarCard key={car?.id} car={car} />
-        // <Card
-        //   sx={{
-        //     minWidth: 500, maxWidth: 500, mt: 2, textAlign: "center", bgcolor: "#8d99ae",
-        //   }}
-        //   key={car?.id}
-        // >
-        //   <CardContent>
-        //     <Typography variant="h5">{car?.description}</Typography>
-        //     <Typography variant="body2">{car?.vin}</Typography>
-        //   </CardContent>
-
-        // </Card>
-      ))} */}
       <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Cars
-        </Typography>
-
-        {/* <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
-          <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>
-            <ProductFilterSidebar
-              isOpenFilter={openFilter}
-              onOpenFilter={handleOpenFilter}
-              onCloseFilter={handleCloseFilter}
-            />
-            <ProductSort />
-          </Stack>
-        </Stack> */}
+        <Box sx={{
+          mb: 5, display: "flex", alignItems: "center", justifyContent: "space-between", flexDirection: "row",
+        }}
+        >
+          <Typography variant="h4">
+            Cars
+          </Typography>
+          <Button sx={{ bgcolor: "primary.main", color: "secondary.contrastText" }} onClick={() => setIsModalOpened(true)}>Add New Car</Button>
+        </Box>
         <Grid container spacing={3}>
           {cars?.map((car) => (
             <Grid key={car.id} item xs={12} sm={6} md={3}>
