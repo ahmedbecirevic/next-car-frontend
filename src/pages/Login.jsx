@@ -97,9 +97,7 @@ const Login = () => {
                 </Button>
               </Box>
             </Box>
-
           </ContentStyle>
-
         </Container>
       </RootStyle>
     </Page>

@@ -15,6 +15,8 @@ import Page from "../Page";
 
 const Cars = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [carToEdit, setCarToEdit] = useState({});
   const dispatch = useDispatch();
   const cars = useSelector((state) => state.carsData.cars);
 
@@ -28,12 +30,13 @@ const Cars = () => {
   }, [dispatch]);
 
   const onCloseModalHandler = () => {
+    setIsEditMode(false);
     setIsModalOpened(false);
   };
 
   return (
     <Page title="Cars">
-      <AddCarModal open={isModalOpened} onClose={onCloseModalHandler} />
+      <AddCarModal carToEdit={carToEdit} isEditMode={isEditMode} open={isModalOpened} onClose={onCloseModalHandler} />
       <Container>
         <Box sx={{
           mb: 5, display: "flex", alignItems: "center", justifyContent: "space-between", flexDirection: "row",
@@ -44,14 +47,24 @@ const Cars = () => {
           </Typography>
           <Button sx={{ bgcolor: "primary.main", color: "secondary.contrastText" }} onClick={() => setIsModalOpened(true)}>Add New Car</Button>
         </Box>
-        <Grid container spacing={3}>
-          {cars?.map((car) => (
-            <Grid key={car.id} item xs={12} sm={6} md={3}>
-              <CarCard car={car} />
-            </Grid>
-          ))}
-        </Grid>
+        {cars?.length > 0 ? (
+          <Grid container spacing={3}>
+            {cars?.map((car) => (
+              <Grid key={car.id} item xs={12} sm={6} md={3}>
+                <CarCard setCarToEdit={setCarToEdit} setIsOpen={setIsModalOpened} setIsEdit={setIsEditMode} car={car} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <Box sx={{ textAlign: "center" }}>
+            <Typography variant="h5">
+              No Data Found
+            </Typography>
+          </Box>
+
+        )}
       </Container>
+
     </Page>
   );
 };

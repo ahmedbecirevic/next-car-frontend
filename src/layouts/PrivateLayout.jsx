@@ -1,7 +1,10 @@
 import { styled } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 
+import { requestWithAuthHeader } from "../api/helpers";
+import { setUser } from "../redux/userSlice";
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
 
@@ -31,6 +34,14 @@ const MainStyle = styled("div")(({ theme }) => ({
 
 const PrivateLayout = () => {
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      const res = await requestWithAuthHeader("GET", "/users");
+      dispatch(setUser(res.data));
+    })();
+  }, [dispatch]);
 
   return (
     <RootStyle>
@@ -44,10 +55,4 @@ const PrivateLayout = () => {
 };
 
 export default PrivateLayout;
-
-// ----------------------------------------------------------------------
-
-// const DashboardLayout = () => {
-
-// };
 

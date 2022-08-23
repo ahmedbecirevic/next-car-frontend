@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {
   Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, FormControl, styled, TextField,
 } from "@mui/material";
@@ -6,16 +7,18 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { isFulfilled } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 
 import { REGEX } from "../../constants";
-import { createCar } from "../../api/services/carService";
-import { createNewCar } from "../../redux/carsSlice";
+import { createNewCar, updateExistingCar } from "../../redux/carsSlice";
 import { setErrorMessage, setSuccessMessage } from "../../redux/snackbarSlice";
 
 const StyledTextField = styled(TextField)(() => ({ ".MuiFormHelperText-root": { marginLeft: "0" } }));
 
-// eslint-disable-next-line react/prop-types
-const AddCarModal = ({ open, onClose }) => {
+const AddCarModal = ({
+  // eslint-disable-next-line react/prop-types
+  open, onClose, isEditMode, carToEdit,
+}) => {
   const dispatch = useDispatch();
 
   const carValidationSchema = Yup.object().shape({
@@ -54,29 +57,49 @@ const AddCarModal = ({ open, onClose }) => {
 
   const onSubmitHandler = async () => {
     const car = getValues();
-    const res = await dispatch(createNewCar(car));
+    const res = await dispatch(isEditMode ? updateExistingCar({ ...car, id: carToEdit?.id }) : createNewCar(car));
     if (isFulfilled(res)) {
-      dispatch(setSuccessMessage({ text: "Car successfully added" }));
+      dispatch(setSuccessMessage({ text: isEditMode ? "Car updated successfully" : "Car successfully added" }));
     } else {
-      dispatch(setErrorMessage({ text: "Failed to create new car" }));
+      dispatch(setErrorMessage({ text: isEditMode ? "Failed to create new car" : "Failed to create new car" }));
     }
     resetForm();
     onClose();
   };
 
+  useEffect(() => {
+    if (isEditMode) {
+      const {
+        vin, fuelType, mileage, productionYear, description, horsePower, engineDisplacement,
+      } = carToEdit || {};
+      reset({
+        vin,
+        fuelType,
+        mileage,
+        productionYear,
+        description,
+        horsePower,
+        engineDisplacement,
+      });
+    }
+  }, [open]);
+
   return (
-    <Dialog onClose={onClose} open={open}>
+    <Dialog
+      fullWidth
+      onClose={onClose}
+      open={open}
+    >
       <DialogTitle>Create New Car</DialogTitle>
       <DialogContent>
         <FormControl
           fullWidth
-          sx={{ p: 1, width: "32vw" }}
+          sx={{ p: 1 }}
         >
           <StyledTextField
             {...register("vin")}
             error={!!errors?.vin}
             helperText={errors?.vin?.message}
-            variant="filled"
             label="VIN"
             margin="normal"
           />
@@ -84,7 +107,6 @@ const AddCarModal = ({ open, onClose }) => {
             {...register("fuelType")}
             error={!!errors?.fuelType}
             helperText={errors?.fuelType?.message}
-            variant="filled"
             label="Fuel Type"
             margin="normal"
           />
@@ -92,7 +114,6 @@ const AddCarModal = ({ open, onClose }) => {
             {...register("mileage")}
             error={!!errors?.mileage}
             helperText={errors?.mileage?.message}
-            variant="filled"
             label="Mileage"
             margin="normal"
           />
@@ -100,7 +121,6 @@ const AddCarModal = ({ open, onClose }) => {
             {...register("productionYear")}
             error={!!errors?.productionYear}
             helperText={errors?.productionYear?.message}
-            variant="filled"
             label="Production Year"
             margin="normal"
           />
@@ -108,7 +128,6 @@ const AddCarModal = ({ open, onClose }) => {
             {...register("description")}
             error={!!errors?.description}
             helperText={errors?.description?.message}
-            variant="filled"
             label="Description"
             margin="normal"
           />
@@ -116,7 +135,6 @@ const AddCarModal = ({ open, onClose }) => {
             {...register("horsePower")}
             error={!!errors?.horsePower}
             helperText={errors?.horsePower?.message}
-            variant="filled"
             label="Horse Power"
             margin="normal"
           />
@@ -124,23 +142,27 @@ const AddCarModal = ({ open, onClose }) => {
             {...register("engineDisplacement")}
             error={!!errors?.engineDisplacement}
             helperText={errors?.engineDisplacement?.message}
-            variant="filled"
             label="Engine Displacement"
             margin="normal"
           />
         </FormControl>
       </DialogContent>
       <DialogActions>
-        <Button variant="secondary" onClick={() => { resetForm(); onClose(); }}>
-          Cancel
-        </Button>
-        <Button
-          type="submit"
-          variant="primary"
-          onClick={handleSubmit(onSubmitHandler)}
+        <Box sx={{
+          width: "100%", display: "flex", justifyContent: "space-between", p: 2,
+        }}
         >
-          Add
-        </Button>
+          <Button variant="secondary" onClick={() => { resetForm(); onClose(); }}>
+            Cancel
+          </Button>
+          <Button
+            type="submit"
+            sx={{ bgcolor: "primary.main", color: "secondary.contrastText" }}
+            onClick={handleSubmit(onSubmitHandler)}
+          >
+            {isEditMode ? "Update" : "Add"}
+          </Button>
+        </Box>
       </DialogActions>
     </Dialog>
   );

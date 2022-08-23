@@ -3,10 +3,13 @@ import { Link as RouterLink } from "react-router-dom";
 import {
   Box, Card, Link, Typography, Stack,
 } from "@mui/material";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
 import Label from "../Label";
 
-const CarCard = ({ car }) => {
+const CarCard = ({
+  car, setIsEdit, setIsOpen, setCarToEdit,
+}) => {
   const {
     description, vin, fuelType, mileage, horsePower, productionYear,
   } = car;
@@ -45,17 +48,37 @@ const CarCard = ({ car }) => {
             {" "}
             {horsePower}
           </Typography>
-        </Stack>
-        <Link to="/" color="inherit" underline="hover" component={RouterLink}>
-          <Typography variant="subtitle2" noWrap>
-            {description}
+          <Typography variant="body2">
+            <b>Year:</b>
+            {" "}
+            {productionYear}
           </Typography>
-        </Link>
+        </Stack>
+        <Box display="flex" justifyContent="space-between">
+          <Link to="/" color="inherit" underline="hover" component={RouterLink}>
+            <Typography variant="subtitle2" noWrap>
+              {description}
+            </Typography>
+          </Link>
+          <ModeEditIcon
+            sx={{ cursor: "pointer" }}
+            onClick={() => {
+              setCarToEdit(car);
+              setIsEdit(true);
+              setIsOpen(true);
+            }}
+          />
+        </Box>
       </Stack>
     </Card>
   );
 };
 
-CarCard.propTypes = { car: PropTypes.object };
+CarCard.propTypes = {
+  car: PropTypes.object,
+  setIsEdit: PropTypes.func,
+  setIsOpen: PropTypes.func,
+  setCarToEdit: PropTypes.func,
+};
 
 export default CarCard;

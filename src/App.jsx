@@ -9,14 +9,14 @@ import { CssBaseline } from "@mui/material";
 import { useEffect } from "react";
 
 import ThemeProvider from "./theme/index";
-// import Login from "./components/Login";
 import Login from "./pages/Login";
 import Cars from "./components/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import SnackBar from "./components/UI/Snackbar";
-import Profile from "./pages/profile";
+import Profile from "./pages/Profile";
+import Posts from "./pages/Posts";
 
 const App = () => {
   const [searchParams] = useSearchParams();
@@ -39,10 +39,10 @@ const App = () => {
           <Route path={ROUTES.SIGN_IN} element={<Login />} />
         </Route>
         <Route path="/" element={<PrivateOutlet />}>
-          {/* <Route path="cars" element={<Navigate to="cars" />} /> */}
           <Route path="/" element={<Home />} />
           <Route path="cars" element={<Cars />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="listings" element={<Posts />} />
           {/* <Route path="dar" element={<Cars />} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

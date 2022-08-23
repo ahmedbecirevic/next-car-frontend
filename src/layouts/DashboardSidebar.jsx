@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import {
   Box, Link, Drawer, Typography, Avatar,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 // hooks
 import useResponsive from "../hooks/useResponsive";
@@ -14,13 +15,6 @@ import Scrollbar from "../components/Scrollbar";
 import NavSection from "../components/NavSection";
 //
 import navConfig from "./NavConfig";
-
-// ----------------------------------------------------------------------
-const account = {
-  displayName: "Jaydon Frankie",
-  email: "demo@minimals.cc",
-  photoURL: "/static/images/user-profile.svg",
-};
 
 const DRAWER_WIDTH = 280;
 
@@ -43,6 +37,7 @@ const AccountStyle = styled("div")(({ theme }) => ({
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
+  const { email, image } = useSelector((state) => state.userData);
 
   const isDesktop = useResponsive("up", "lg");
 
@@ -63,13 +58,10 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       <Box sx={{ my: 5, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="/">
           <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
+            <Avatar src={image || "/static/images/user-profile.svg"} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
-                {account.displayName}
-              </Typography>
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                {account.role}
+                {email?.split("@")[0]}
               </Typography>
             </Box>
           </AccountStyle>

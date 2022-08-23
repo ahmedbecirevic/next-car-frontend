@@ -1,37 +1,18 @@
 import { useRef, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 // @mui
 import { alpha } from "@mui/material/styles";
 import {
-  Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton,
+  Box, Divider, Typography, MenuItem, Avatar, IconButton,
 } from "@mui/material";
+import { useSelector } from "react-redux";
 
 import MenuPopover from "../components/MenuPopover";
 
-// ----------------------------------------------------------------------
-
-const MENU_OPTIONS = [
-  {
-    label: "Home",
-    icon: "eva:home-fill",
-    linkTo: "/",
-  },
-  {
-    label: "Profile",
-    icon: "eva:person-fill",
-    linkTo: "#",
-  },
-  {
-    label: "Settings",
-    icon: "eva:settings-2-fill",
-    linkTo: "#",
-  },
-];
-
-// ----------------------------------------------------------------------
-
 const AccountPopover = () => {
   const anchorRef = useRef(null);
+  const navigate = useNavigate();
+  const { email, image } = useSelector((state) => state.userData);
 
   const [open, setOpen] = useState(null);
 
@@ -43,10 +24,9 @@ const AccountPopover = () => {
     setOpen(null);
   };
 
-  const account = {
-    displayName: "Jaydon Frankie",
-    email: "demo@minimals.cc",
-    photoURL: "/static/mock-images/avatars/avatar_default.jpg",
+  const onLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/sign-in");
   };
 
   return (
@@ -69,7 +49,7 @@ const AccountPopover = () => {
           }),
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={image || "/static/mock-images/avatars/avatar_default.jpg"} alt="photoURL" />
       </IconButton>
 
       <MenuPopover
@@ -87,32 +67,14 @@ const AccountPopover = () => {
         }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
-          <Typography variant="subtitle2" noWrap>
-            {account.displayName}
-          </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {account.email}
+            {email}
           </Typography>
         </Box>
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
-            <MenuItem
-              key={option.label}
-              to={option.linkTo}
-              component={RouterLink}
-              onClick={handleClose}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </Stack>
-
-        <Divider sx={{ borderStyle: "dashed" }} />
-
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={onLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </MenuPopover>
