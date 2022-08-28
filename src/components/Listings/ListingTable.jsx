@@ -20,6 +20,9 @@ import Tooltip from "@mui/material/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { useNavigate } from "react-router-dom";
+
+import RenderActions from "./RenderActions";
 
 // const rows = [{
 //   id: 1,
@@ -203,13 +206,14 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = { numSelected: PropTypes.number.isRequired };
 
-export default function EnhancedTable({ rows }) {
+export default function EnhancedTable({ rows, onDetailsClick }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("title");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const navigate = useNavigate();
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -319,6 +323,16 @@ export default function EnhancedTable({ rows }) {
                       <TableCell align="left">{row?.price}</TableCell>
                       <TableCell align="left">{row?.condition}</TableCell>
                       <TableCell align="left">{row?.createdAt}</TableCell>
+                      <TableCell
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => {
+                          onDetailsClick(row?.id);
+                          navigate(`/listings/${row?.id}`);
+                        }}
+                        align="center"
+                      >
+                        Details
+                      </TableCell>
                     </TableRow>
                   );
                 })}

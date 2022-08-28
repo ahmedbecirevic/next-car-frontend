@@ -14,6 +14,8 @@ const Posts = () => {
     setIsModalOpened(false);
   };
 
+  const onDetailsClickHandler = (id) => { console.log(id); };
+
   useEffect(() => {
     (async () => {
       try {
@@ -42,7 +44,7 @@ const Posts = () => {
             Add New Listing
           </Button>
         </Box>
-        <ListingsTable rows={posts} />
+        <ListingsTable rows={posts} onDetailsClick={onDetailsClickHandler} />
       </Box>
     </>
   );

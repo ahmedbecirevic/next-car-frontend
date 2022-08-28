@@ -17,6 +17,7 @@ import Home from "./pages/Home";
 import SnackBar from "./components/UI/Snackbar";
 import Profile from "./pages/Profile";
 import Posts from "./pages/Posts";
+import ListingDetails from "./components/Listings/ListingDetails";
 
 const App = () => {
   const [searchParams] = useSearchParams();
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="cars" element={<Cars />} />
           <Route path="profile" element={<Profile />} />
           <Route path="listings" element={<Posts />} />
+          <Route path="listings/:listingId" element={<ListingDetails />} />
           {/* <Route path="dar" element={<Cars />} /> */}
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
