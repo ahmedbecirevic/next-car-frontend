@@ -1,5 +1,4 @@
-import { Box, Typography } from "@mui/material";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import Carousel from "react-material-ui-carousel";
 import { useParams } from "react-router-dom";
 
