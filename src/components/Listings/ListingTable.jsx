@@ -211,7 +211,7 @@ export default function EnhancedTable({ rows, onDetailsClick }) {
   const [orderBy, setOrderBy] = React.useState("title");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [dense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const navigate = useNavigate();
 
@@ -260,9 +260,9 @@ export default function EnhancedTable({ rows, onDetailsClick }) {
     setPage(0);
   };
 
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
+  // const handleChangeDense = (event) => {
+  //   setDense(event.target.checked);
+  // };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
@@ -301,7 +301,7 @@ export default function EnhancedTable({ rows, onDetailsClick }) {
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row?.title}
+                      key={row?.id}
                       selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
