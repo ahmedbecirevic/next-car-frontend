@@ -1,13 +1,16 @@
 /* eslint-disable react/prop-types */
 import {
-  Box, Button, MenuItem, Select, Stack, Step, StepLabel, Stepper, styled, TextField, Typography,
+  Box, Button,
+  Stack, Step,
+  StepLabel,
+  Stepper,
+  styled,
+  TextField,
+  Typography,
   Dialog,
   DialogTitle,
   DialogContent,
   DialogActions,
-  FormControl,
-  InputLabel,
-  FormHelperText,
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
@@ -16,15 +19,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-import { isFulfilled } from "@reduxjs/toolkit";
 
 import { requestWithAuthHeader } from "../../api/helpers";
 import { getAllCars } from "../../redux/carsSlice";
 import { setErrorMessage, setSuccessMessage } from "../../redux/snackbarSlice";
+import CreateEditListing from "./CreateEditListing";
 
 const HiddenInput = styled("input")({ display: "none" });
 
-const UploadPhotos = ({ setListingImages, listingImages }) => {
+export const UploadPhotos = ({ setListingImages, listingImages }) => {
   const [imageUrls, setImageUrls] = useState([]);
 
   const onImageChangeHandler = (e) => setListingImages([...e.target.files]);
@@ -63,9 +66,7 @@ const UploadPhotos = ({ setListingImages, listingImages }) => {
   );
 };
 
-const StyledTextField = styled(TextField)(() => ({ ".MuiFormHelperText-root": { marginLeft: "0" } }));
-
-const Listing = ({ open, onClose }) => {
+const Listing = ({ open, onClose, setListings }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [selectedCarId, setSelectedCarId] = useState("");
   const [listingImages, setListingImages] = useState([]);
@@ -94,14 +95,14 @@ const Listing = ({ open, onClose }) => {
     }
   };
 
-  const requiredMEssage = "This field is required";
+  const requiredMessage = "This field is required";
 
   const listingValidationSchema = Yup.object().shape({
-    condition: Yup.string().required(requiredMEssage),
-    title: Yup.string().required(requiredMEssage),
-    location: Yup.string().required(requiredMEssage),
-    price: Yup.number().required(requiredMEssage),
-    carId: Yup.number().required(requiredMEssage),
+    condition: Yup.string().required(requiredMessage),
+    title: Yup.string().required(requiredMessage),
+    location: Yup.string().required(requiredMessage),
+    price: Yup.number().required(requiredMessage),
+    carId: Yup.number().required(requiredMessage),
   });
 
   const {
@@ -134,6 +135,7 @@ const Listing = ({ open, onClose }) => {
       try {
         const createdListingRes = await requestWithAuthHeader("POST", "/posts", { ...listing, carId: selectedCarId });
         setListingId(createdListingRes?.data?.id);
+        setListings((prevState) => [...prevState, createdListingRes?.data]);
       } catch (error) {
         dispatch(setErrorMessage({ text: "Could not create a listing" }));
         onCloseHandler();
@@ -176,63 +178,10 @@ const Listing = ({ open, onClose }) => {
           </Step>
         </Stepper>
         {activeStep === 0 && (
-          <FormControl fullWidth>
-            <Stack mt={4} mx={2} spacing={2}>
-              {cars && (
-              <FormControl>
-                <InputLabel id="car-select">Car</InputLabel>
-                <Select
-                  {...register("carId")}
-                  error={!!errors?.carId}
-                  labelId="car-select"
-                  label="Car"
-                  onChange={onCarSelectChange}
-                  value={selectedCarId}
-                >
-                  {cars?.map((car) => <MenuItem key={car.id} value={car.id}>{car?.description || "No name"}</MenuItem>)}
-                </Select>
-                <FormHelperText sx={{ ml: 0 }} error={!!errors?.carId}>{errors?.carId?.message}</FormHelperText>
-              </FormControl>
-              )}
-              <StyledTextField
-                label="Title"
-                {...register("title")}
-                error={!!errors?.title}
-                helperText={errors?.title?.message}
-              />
-              <StyledTextField
-                label="Location"
-                {...register("location")}
-                error={!!errors?.location}
-                helperText={errors?.location?.message}
-              />
-              <FormControl>
-                <InputLabel id="cond-select">Condition</InputLabel>
-                <Select
-                  labelId="cond-select"
-                  {...register("condition")}
-                  defaultValue="NEW"
-                  error={!!errors?.condition}
-                  label="Condition"
-                >
-                  <MenuItem value="NEW">NEW</MenuItem>
-                  <MenuItem value="USED">USED</MenuItem>
-                </Select>
-              </FormControl>
-              <StyledTextField
-                label="Price"
-                {...register("price")}
-                error={!!errors?.price}
-                helperText={errors?.price?.message}
-                type="number"
-              />
-            </Stack>
-          </FormControl>
-        )}
+          <CreateEditListing register={register} errors={errors} onCarSelectChange={onCarSelectChange} selectedCarId={selectedCarId} />)}
         {activeStep === 1 && <UploadPhotos setListingImages={setListingImages} listingImages={listingImages} />}
       </DialogContent>
       <DialogActions>
-        {/* {activeStep} */}
         <Box sx={{
           width: "100%",
           display: "flex",

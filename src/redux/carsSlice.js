@@ -18,8 +18,8 @@ export const createNewCar = createAsyncThunk(
       const response = await createCar(car);
 
       return response?.data;
-    } catch (err) {
-      return rejectWithValue(err.message);
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
   },
 );

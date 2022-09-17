@@ -10,14 +10,15 @@ import { useEffect } from "react";
 
 import ThemeProvider from "./theme/index";
 import Login from "./pages/Login";
-import Cars from "./components/Cars";
+import Cars from "./features/Cars";
 import { PrivateOutlet, PublicOutlet } from "./components/Outlets";
 import { ROUTES } from "./config";
 import Home from "./pages/Home";
 import SnackBar from "./components/UI/Snackbar";
 import Profile from "./pages/Profile";
 import Posts from "./pages/Posts";
-import ListingDetails from "./components/Listings/ListingDetails";
+import ListingDetails from "./features/Listings/ListingDetails";
+import PurchaseHistory from "./pages/PurchaseHistory";
 
 const App = () => {
   const [searchParams] = useSearchParams();
@@ -41,11 +42,11 @@ const App = () => {
         </Route>
         <Route path="/" element={<PrivateOutlet />}>
           <Route path="/" element={<Home />} />
-          <Route path="cars" element={<Cars />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="listings" element={<Posts />} />
+          <Route path={ROUTES.CARS} element={<Cars />} />
+          <Route path={ROUTES.PROFILE} element={<Profile />} />
+          <Route path={ROUTES.LISTINGS} element={<Posts />} />
           <Route path="listings/:listingId" element={<ListingDetails />} />
-          {/* <Route path="dar" element={<Cars />} /> */}
+          <Route path={ROUTES.PURCHASE_HISTORY} element={<PurchaseHistory />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

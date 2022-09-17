@@ -2,8 +2,8 @@ import { Box, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
 import { requestWithAuthHeader } from "../api/helpers";
-import Listing from "../components/Listings";
-import ListingsTable from "../components/Listings/ListingTable";
+import Listing from "../features/Listings";
+import ListingsTable from "../features/Listings/ListingTable";
 
 const Posts = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -14,13 +14,11 @@ const Posts = () => {
     setIsModalOpened(false);
   };
 
-  const onDetailsClickHandler = (id) => { console.log(id); };
-
   useEffect(() => {
     (async () => {
       try {
         // const res = await axios.get("/posts");
-        const res = await requestWithAuthHeader("GET", "/posts");
+        const res = await requestWithAuthHeader("GET", "/posts/user");
         setPosts(res.data);
       } catch (e) {
         setError(e);
@@ -30,7 +28,7 @@ const Posts = () => {
 
   return (
     <>
-      <Listing open={isModalOpened} onClose={onCloseModalHandler} />
+      <Listing open={isModalOpened} setListings={setPosts} onClose={onCloseModalHandler} />
       <Box width="100%">
         <Box display="flex" width="100%" flexDirection="row" justifyContent="flex-end">
           <Button
@@ -44,7 +42,7 @@ const Posts = () => {
             Add New Listing
           </Button>
         </Box>
-        <ListingsTable rows={posts} onDetailsClick={onDetailsClickHandler} />
+        <ListingsTable rows={posts} />
       </Box>
     </>
   );

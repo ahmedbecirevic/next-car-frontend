@@ -5,7 +5,7 @@ import {
 } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 
-import Label from "../Label";
+import Label from "../../components/Label";
 
 const CarCard = ({
   car, setIsEdit, setIsOpen, setCarToEdit,

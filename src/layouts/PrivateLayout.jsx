@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
 
-import { requestWithAuthHeader } from "../api/helpers";
-import { setUser } from "../redux/userSlice";
+import { fetchUserData } from "../redux/userSlice";
 import DashboardNavbar from "./DashboardNavbar";
 import DashboardSidebar from "./DashboardSidebar";
 
@@ -30,18 +29,18 @@ const MainStyle = styled("div")(({ theme }) => ({
   },
 }));
 
-// import Navigation from "../components/Navigation";
-
 const PrivateLayout = () => {
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
     (async () => {
-      const res = await requestWithAuthHeader("GET", "/users");
-      dispatch(setUser(res.data));
+      (async () => {
+        await dispatch(fetchUserData());
+      })();
     })();
-  }, [dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <RootStyle>

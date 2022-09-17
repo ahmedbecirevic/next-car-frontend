@@ -22,17 +22,6 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 import { useNavigate } from "react-router-dom";
 
-import RenderActions from "./RenderActions";
-
-// const rows = [{
-//   id: 1,
-//   title: "Golf 8 for sale",
-//   condition: "NEW",
-//   location: "Sarajevo",
-//   price: 120000,
-//   createdAt: "2022",
-// }];
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -110,20 +99,11 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{ "aria-label": "select all desserts" }}
-          />
-        </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
-            padding={headCell.disablePadding ? "none" : "normal"}
+            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
@@ -206,7 +186,7 @@ const EnhancedTableToolbar = (props) => {
 
 EnhancedTableToolbar.propTypes = { numSelected: PropTypes.number.isRequired };
 
-export default function EnhancedTable({ rows, onDetailsClick }) {
+export default function EnhancedTable({ rows }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("title");
   const [selected, setSelected] = React.useState([]);
@@ -260,10 +240,6 @@ export default function EnhancedTable({ rows, onDetailsClick }) {
     setPage(0);
   };
 
-  // const handleChangeDense = (event) => {
-  //   setDense(event.target.checked);
-  // };
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -304,29 +280,21 @@ export default function EnhancedTable({ rows, onDetailsClick }) {
                       key={row?.id}
                       selected={isItemSelected}
                     >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{ "aria-labelledby": labelId }}
-                        />
-                      </TableCell>
                       <TableCell
                         component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
+                        padding="normal"
                       >
                         {row.title}
                       </TableCell>
                       <TableCell align="left">{row?.location}</TableCell>
                       <TableCell align="left">{row?.price}</TableCell>
                       <TableCell align="left">{row?.condition}</TableCell>
-                      <TableCell align="left">{row?.createdAt}</TableCell>
+                      <TableCell align="left">{new Date(row?.createdAt).toLocaleString()}</TableCell>
                       <TableCell
-                        sx={{ cursor: "pointer" }}
+                        sx={{ cursor: "pointer", textDecoration: "underline" }}
                         onClick={() => {
-                          onDetailsClick(row?.id);
                           navigate(`/listings/${row?.id}`);
                         }}
                         align="center"

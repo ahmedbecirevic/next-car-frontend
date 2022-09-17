@@ -1,4 +1,9 @@
 // component
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import HomeIcon from "@mui/icons-material/Home";
+import LabelIcon from "@mui/icons-material/Label";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
 import Iconify from "../components/Iconify";
 
 // ----------------------------------------------------------------------
@@ -9,7 +14,7 @@ const navConfig = [
   {
     title: "Home",
     path: "",
-    icon: getIcon("eva:pie-chart-2-fill"),
+    icon: <HomeIcon />,
   },
   {
     title: "Profile",
@@ -19,12 +24,17 @@ const navConfig = [
   {
     title: "Cars",
     path: "/cars",
-    icon: getIcon("eva:shopping-bag-fill"),
+    icon: <DirectionsCarIcon />,
   },
   {
     title: "Listings",
     path: "/listings",
-    icon: getIcon("eva:lock-fill"),
+    icon: <LabelIcon />,
+  },
+  {
+    title: "Purchase history",
+    path: "/purchase-history",
+    icon: <ShoppingCartIcon />,
   },
 ];
 

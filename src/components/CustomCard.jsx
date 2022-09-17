@@ -18,9 +18,8 @@ const CustomCard = ({
       elevation={2}
       m={0.5}
       sx={{
-        minWidth: "45vw",
+        minWidth: { xs: "90vw", md: "45vw", xl: "40vw" },
         width: "fit-content",
-        // height: "fit-content",
         borderRadius: 2,
         ...additionalStyling,
       }}
@@ -44,7 +43,7 @@ const CustomCard = ({
           >
             {title}
           </Typography>
-          {actions?.length && <CustomMenu icon={<SettingsIcon />} actions={actions} />}
+          {actions?.length ? <CustomMenu icon={<SettingsIcon />} actions={actions} /> : ""}
         </Box>
       )}
       <Box
@@ -88,7 +87,7 @@ CustomCard.propTypes = {
   details: PropTypes.arrayOf(PropTypes.object).isRequired,
   actions: PropTypes.arrayOf(PropTypes.object),
   additionalStyling: PropTypes.object,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 CustomCard.defaultProps = {

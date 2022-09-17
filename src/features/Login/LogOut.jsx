@@ -6,7 +6,7 @@ const LogOut = () => {
 
   return (
     <Button
-      variant="primary"
+      variant="outlined"
       onClick={() => {
         localStorage.removeItem("token");
         navigate("/sign-in");

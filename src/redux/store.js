@@ -1,15 +1,19 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
 
 import authReducer from "./authSlice";
 import carsReducer from "./carsSlice";
 import snackbarReducer from "./snackbarSlice";
 import userReducer from "./userSlice";
+import purchaseReducer from "./purchaseSlice";
 
 const reducer = {
   auth: authReducer,
   carsData: carsReducer,
   snackbar: snackbarReducer,
   userData: userReducer,
+  purchaseData: purchaseReducer,
 };
 
 const combinedReducer = combineReducers(reducer);

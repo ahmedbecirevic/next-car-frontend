@@ -98,6 +98,13 @@ const AddCarModal = ({
           sx={{ p: 1 }}
         >
           <StyledTextField
+            {...register("description")}
+            error={!!errors?.description}
+            helperText={errors?.description?.message}
+            label="Model"
+            margin="normal"
+          />
+          <StyledTextField
             {...register("vin")}
             error={!!errors?.vin}
             helperText={errors?.vin?.message}
@@ -123,13 +130,6 @@ const AddCarModal = ({
             error={!!errors?.productionYear}
             helperText={errors?.productionYear?.message}
             label="Production Year"
-            margin="normal"
-          />
-          <StyledTextField
-            {...register("description")}
-            error={!!errors?.description}
-            helperText={errors?.description?.message}
-            label="Description"
             margin="normal"
           />
           <StyledTextField

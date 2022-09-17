@@ -11,7 +11,8 @@ import { getAllCars } from "../../redux/carsSlice";
 import { setErrorMessage } from "../../redux/snackbarSlice";
 import AddCarModal from "./AddCarModal";
 import CarCard from "./CarCard";
-import Page from "../Page";
+import Page from "../../components/Page";
+import noDataIllustration from "../../assets/no-data.svg";
 
 const Cars = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
@@ -56,12 +57,7 @@ const Cars = () => {
             ))}
           </Grid>
         ) : (
-          <Box sx={{ textAlign: "center" }}>
-            <Typography variant="h5">
-              No Data Found
-            </Typography>
-          </Box>
-
+          <Box display="flex" justifyContent="center"><Box width="50vw" component="img" src={noDataIllustration} /></Box>
         )}
       </Container>
 
