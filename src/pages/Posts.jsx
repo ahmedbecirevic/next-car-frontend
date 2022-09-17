@@ -8,7 +8,7 @@ import ListingsTable from "../features/Listings/ListingTable";
 const Posts = () => {
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [posts, setPosts] = useState([]);
-  const [error, setError] = useState(null);
+  const [, setError] = useState(null);
 
   const onCloseModalHandler = () => {
     setIsModalOpened(false);

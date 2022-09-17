@@ -38,7 +38,7 @@ const ListingCard = ({ listing, userId }) => {
       mb: 3, height: "25%", display: "flex", borderRadius: 1,
     }}
     >
-      <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: 250, width: { md: "30%", xs: "50%" } }}>
+      <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: 250, width: { md: "30%", xs: "40%" } }}>
         {listing?.images[0]?.link
           ? <CardMedia component="img" src={listing?.images[0]?.link} /> : (
             <HideImageIcon
@@ -46,7 +46,7 @@ const ListingCard = ({ listing, userId }) => {
             />
           )}
       </Box>
-      <CardContent sx={{ width: { xs: "50%", md: "70%", borderRadius: 6 } }}>
+      <CardContent sx={{ width: { xs: "50%", md: "70%" }, borderRadius: 6 }}>
         <Box display="flex" flexDirection="column">
           <Box display="flex" justifyContent="space-between">
             <Box>

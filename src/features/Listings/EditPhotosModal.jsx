@@ -6,6 +6,7 @@ import {
 } from "@mui/material";
 import { useDispatch } from "react-redux";
 import CloseIcon from "@mui/icons-material/Close";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
 
 import { requestWithAuthHeader } from "../../api/helpers";
@@ -59,9 +60,14 @@ const EditPhotosModal = ({
               {images?.map(({ link, id }) => (
                 <Box key={id} sx={{ position: "relative" }}>
                   <img src={link} alt="car" />
-                  <CloseIcon
+                  <RemoveCircleOutlineIcon
                     sx={{
-                      cursor: "pointer", position: "absolute", top: 0, right: 0,
+                      width: 40,
+                      height: 40,
+                      cursor: "pointer",
+                      position: "absolute",
+                      top: 2,
+                      right: 2,
                     }}
                     onClick={() => deleteImageHandler(id)}
                   />
