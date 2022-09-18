@@ -4,23 +4,30 @@ import {
   CardMedia,
   Typography,
   Box,
-  Button,
 } from "@mui/material";
 import PropTypes from "prop-types";
 import HideImageIcon from "@mui/icons-material/HideImage";
 import { useDispatch } from "react-redux";
 import { isFulfilled } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { useState } from "react";
 
-import { requestWithAuthHeader } from "../../api/helpers";
 import { createNewPurchase } from "../../redux/purchaseSlice";
 import { setErrorMessage, setSuccessMessage } from "../../redux/snackbarSlice";
 
+// eslint-disable-next-line camelcase
+const checkIfUserRequestedToBuy = (userId, purchases) => purchases?.some((purchase) => purchase?.userId === userId);
+
 const ListingCard = ({ listing, userId }) => {
+  const [loading, setIsLoading] = useState(false);
+  const [buttonText, setButtonText] = useState(checkIfUserRequestedToBuy(userId, listing?.purchase_histories) ? "Requested" : "Request purchase");
+  const [isButtonDisabled, setIsButtonDisabled] = useState(checkIfUserRequestedToBuy(userId, listing?.purchase_histories));
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const requestPurchaseHandler = async () => {
+    setIsLoading(true);
     const res = await dispatch(createNewPurchase({
       status: "REQUESTED",
       userId,
@@ -28,9 +35,12 @@ const ListingCard = ({ listing, userId }) => {
     }));
     if (isFulfilled(res)) {
       dispatch(setSuccessMessage({ text: "Successfully requested to buy this listing" }));
+      setButtonText("Requested");
+      setIsButtonDisabled(true);
     } else {
       dispatch(setErrorMessage({ text: "Could not request to buy listing" }));
     }
+    setIsLoading(false);
   };
 
   return (
@@ -70,13 +80,15 @@ const ListingCard = ({ listing, userId }) => {
             </Box>
             {userId !== listing?.car?.userId
           && (
-            <Button
-              sx={{ height: 45 }}
+            <LoadingButton
+              loading={loading}
               variant="contained"
+              sx={{ height: 45 }}
               onClick={requestPurchaseHandler}
+              disabled={isButtonDisabled}
             >
-              Request purchase
-            </Button>
+              {buttonText}
+            </LoadingButton>
           )}
           </Box>
           <Typography

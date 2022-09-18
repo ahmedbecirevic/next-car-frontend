@@ -34,8 +34,6 @@ const CreateEditListing = ({
   return (
     <FormControl fullWidth>
       <Stack mt={4} mx={2} spacing={2}>
-        {selectedCarId
-        && (
         <FormControl>
           <InputLabel id="car-select">Car</InputLabel>
           <Select
@@ -50,7 +48,6 @@ const CreateEditListing = ({
           </Select>
           <FormHelperText sx={{ ml: 0 }} error={!!errors?.carId}>{errors?.carId?.message}</FormHelperText>
         </FormControl>
-        )}
         <StyledTextField
           label="Title"
           {...register("title")}

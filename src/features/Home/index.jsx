@@ -11,6 +11,7 @@ const SIZE = 3;
 
 const HomePage = () => {
   const [loading, setLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
   const [listings, setListings] = useState([]);
   const [pageNum, setPageNum] = useState(0);
   const [totalRows, setTotalRows] = useState(10);
@@ -33,9 +34,14 @@ const HomePage = () => {
 
   const getAllPosts = useCallback(async () => {
     setLoading(true);
-    const response = await requestWithAuthHeader("GET", `/posts?page=${pageNum}&size=${SIZE}`);
-    setListings((prevState) => [...prevState, ...response.data.rows]);
-    setTotalRows(response.data.count);
+    try {
+      const response = await requestWithAuthHeader("GET", `/posts?page=${pageNum}&size=${SIZE}`);
+      setListings((prevState) => [...prevState, ...response.data.rows]);
+      setTotalRows(response.data.count);
+      setIsError(false);
+    } catch {
+      setIsError(true);
+    }
     setLoading(false);
   }, [pageNum]);
 
@@ -75,7 +81,7 @@ const HomePage = () => {
           <ListingCard key={listing?.id} listing={listing} userId={userId} />
         )))}
       </Box>
-      {loading && <Box width="100%" display="flex" justifyContent="center"><CircularProgress /></Box>}
+      {loading && !isError && <Box width="100%" display="flex" justifyContent="center"><CircularProgress /></Box>}
     </Box>
   );
 };
