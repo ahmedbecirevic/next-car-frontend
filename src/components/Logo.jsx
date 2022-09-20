@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/require-default-props */
 import PropTypes from "prop-types";
 import { Link as RouterLink } from "react-router-dom";

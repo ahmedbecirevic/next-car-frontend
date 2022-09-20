@@ -5,7 +5,6 @@ import {
   Dialog, DialogActions, DialogContent, DialogTitle, Typography,
 } from "@mui/material";
 import { useDispatch } from "react-redux";
-import CloseIcon from "@mui/icons-material/Close";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
 import { useState } from "react";
 

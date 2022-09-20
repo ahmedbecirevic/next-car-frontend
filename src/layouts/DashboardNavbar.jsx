@@ -4,7 +4,6 @@ import {
   Box, Stack, AppBar, Toolbar, IconButton,
 } from "@mui/material";
 
-import Searchbar from "./Searchbar";
 import AccountPopover from "./AccountPopover";
 import Iconify from "../components/Iconify";
 

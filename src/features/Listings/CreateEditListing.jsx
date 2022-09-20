@@ -29,6 +29,7 @@ const CreateEditListing = ({
     (async () => {
       await dispatch(getAllCars());
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

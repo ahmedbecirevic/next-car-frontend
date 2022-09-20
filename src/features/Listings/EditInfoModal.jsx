@@ -71,6 +71,7 @@ const EditInfoModal = ({
       carId: listing?.carId,
     });
     setSelectedCarId(listing?.carId);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open]);
 
   return (

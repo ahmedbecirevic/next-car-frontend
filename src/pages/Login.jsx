@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { Icon } from "@iconify/react";
 import {
   Card, Container, Typography, Button, Box,
 } from "@mui/material";
@@ -8,7 +7,6 @@ import { useEffect } from "react";
 
 import useResponsive from "../hooks/useResponsive";
 import Page from "../components/Page";
-import Iconify from "../components/Iconify";
 
 // ----------------------------------------------------------------------
 
@@ -38,7 +36,6 @@ const ContentStyle = styled("div")(({ theme }) => ({
 
 const Login = () => {
   const navigate = useNavigate();
-  const smUp = useResponsive("up", "sm");
   const mdUp = useResponsive("up", "md");
 
   const onGoogleSignInHandler = () => {

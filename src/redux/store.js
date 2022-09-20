@@ -28,8 +28,22 @@ const rootReducer = (state, action) => {
   return combinedReducer(state, action);
 };
 
+const persistConfig = {
+  key: "root",
+  storage,
+  blacklist: [
+    "carsData",
+    "snackbar",
+    "purchaseData",
+  ],
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
   devTools: true,
 });
+
+export const persistor = persistStore(store);
