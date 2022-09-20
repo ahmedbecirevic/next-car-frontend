@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 import { requestWithAuthHeader } from "../../api/helpers";
 import ListingCard from "./ListingCard";
+import noDataIllustration from "../../assets/no-data.svg";
 
 const SIZE = 3;
 
@@ -70,7 +71,7 @@ const HomePage = () => {
   return (
     <Box>
       <Box display="flex" flexDirection="column">
-        {listings?.length && listings?.map((listing, i) => (i === listings.length - 1 && !loading && pageNum <= totalRows ? (
+        {listings?.length ? listings?.map((listing, i) => (i === listings.length - 1 && !loading && pageNum <= totalRows ? (
           <div
             key={listing?.id}
             ref={setLastElement}
@@ -79,7 +80,8 @@ const HomePage = () => {
           </div>
         ) : (
           <ListingCard key={listing?.id} listing={listing} userId={userId} />
-        )))}
+        )))
+          : <Box display="flex" justifyContent="center"><Box width="50vw" component="img" src={noDataIllustration} /></Box>}
       </Box>
       {loading && !isError && <Box width="100%" display="flex" justifyContent="center"><CircularProgress /></Box>}
     </Box>
