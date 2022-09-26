@@ -20,7 +20,7 @@ const combinedReducer = combineReducers(reducer);
 
 const rootReducer = (state, action) => {
   // clear state on logout
-  if (action.type === "auth/logoutUser/fulfilled" || action.type === "auth/tokenExpired" || action.type === "auth/logoutUser") {
+  if (action.type === "auth/logoutUser" || action.type === "auth/tokenExpired") {
     // eslint-disable-next-line no-param-reassign
     state = undefined;
   }

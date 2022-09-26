@@ -5,13 +5,15 @@ import { alpha } from "@mui/material/styles";
 import {
   Box, Divider, Typography, MenuItem, Avatar, IconButton,
 } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import MenuPopover from "../components/MenuPopover";
+import { logoutUser } from "../redux/authSlice";
 
 const AccountPopover = () => {
   const anchorRef = useRef(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { email, image } = useSelector((state) => state.userData);
 
   const [open, setOpen] = useState(null);
@@ -26,6 +28,7 @@ const AccountPopover = () => {
 
   const onLogout = () => {
     localStorage.removeItem("token");
+    dispatch(logoutUser());
     navigate("/sign-in");
   };
 

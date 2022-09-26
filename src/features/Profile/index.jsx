@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import { requestWithAuthHeader } from "../../api/helpers";
 import CustomCard from "../../components/CustomCard";
+import { logoutUser } from "../../redux/authSlice";
 import { setErrorMessage } from "../../redux/snackbarSlice";
 
 const ProfilePage = () => {
@@ -34,6 +35,7 @@ const ProfilePage = () => {
       label: "Log out",
       action: () => {
         localStorage.removeItem("token");
+        dispatch(logoutUser());
         navigate("/sign-in");
       },
     }];

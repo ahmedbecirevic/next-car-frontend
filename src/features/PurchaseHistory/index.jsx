@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import PendingIcon from "@mui/icons-material/Pending";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 
 import { getAllPurchasesForUser } from "../../redux/purchaseSlice";
 import noDataIllustration from "../../assets/no-data.svg";
@@ -31,6 +32,16 @@ const Purchases = () => {
     } catch {}
   };
 
+  const getIcon = (status, id) => {
+    if (status === "REQUESTED") {
+      return userId === id
+        ? <HourglassEmptyIcon sx={{ width: 45, height: 45 }} />
+        : <PendingIcon sx={{ width: 45, height: 45, color: "error.main" }} />;
+    }
+
+    return <CheckCircleIcon sx={{ width: 45, height: 45, color: "success.main" }} />;
+  };
+
   return (
     <div>
       {purchases?.length ? purchases?.map((purchase) => (
@@ -47,8 +58,7 @@ const Purchases = () => {
           key={purchase?.id}
         >
           <Box display="flex" justifyContent="center" alignItems="center" mr={1}>
-            {purchase?.status === "REQUESTED" ? <PendingIcon sx={{ width: 45, height: 45, color: "error.main" }} />
-              : <CheckCircleIcon sx={{ width: 45, height: 45, color: "success.main" }} />}
+            {getIcon(purchase?.status, purchase?.userId)}
           </Box>
           <CardContent sx={{ height: "100%", width: "100%" }}>
             <Box display="flex" flexDirection="column">
@@ -56,7 +66,8 @@ const Purchases = () => {
                 <Box>
                   <Typography variant="h6">
                     {purchase?.status === "REQUESTED"
-                      ? `${purchase?.post?.car?.user?.displayName || "No name"} requested to purchase this listing!`
+                      ? `${userId === purchase?.userId ? "You have"
+                        : (purchase?.post?.car?.user?.displayName || "No name")} requested to purchase this listing!`
                       : `Listing sold to ${purchase?.post?.car?.user?.displayName || "No name"}`}
                   </Typography>
                   <Typography
