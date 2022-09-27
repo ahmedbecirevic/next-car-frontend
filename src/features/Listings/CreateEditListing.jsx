@@ -27,7 +27,9 @@ const CreateEditListing = ({
 
   useEffect(() => {
     (async () => {
-      await dispatch(getAllCars());
+      if (!cars?.length) {
+        await dispatch(getAllCars());
+      }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -36,18 +38,23 @@ const CreateEditListing = ({
     <FormControl fullWidth>
       <Stack mt={4} mx={2} spacing={2}>
         <FormControl>
-          <InputLabel id="car-select">Car</InputLabel>
-          <Select
-            {...register("carId")}
-            error={!!errors?.carId}
-            labelId="car-select"
-            label="Car"
-            onChange={onCarSelectChange}
-            value={selectedCarId}
-          >
-            {cars && cars?.map((car) => <MenuItem key={car.id} value={car.id}>{car?.description || "No name"}</MenuItem>)}
-          </Select>
-          <FormHelperText sx={{ ml: 0 }} error={!!errors?.carId}>{errors?.carId?.message}</FormHelperText>
+          {cars
+          && (
+          <>
+            <InputLabel id="car-select">Car</InputLabel>
+            <Select
+              {...register("carId")}
+              error={!!errors?.carId}
+              labelId="car-select"
+              label="Car"
+              onChange={onCarSelectChange}
+              value={selectedCarId}
+            >
+              {cars?.map((car) => <MenuItem key={car.id} value={car.id}>{car?.description || "No name"}</MenuItem>)}
+            </Select>
+            <FormHelperText sx={{ ml: 0 }} error={!!errors?.carId}>{errors?.carId?.message}</FormHelperText>
+          </>
+          )}
         </FormControl>
         <StyledTextField
           label="Title"
